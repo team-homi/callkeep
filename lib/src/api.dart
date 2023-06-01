@@ -428,6 +428,9 @@ class FlutterCallkeep extends EventManager {
       case 'CallKeepDidDisplayIncomingCall':
         emit(CallKeepDidDisplayIncomingCall.fromMap(data));
         break;
+      case 'CallKeepShowIncomingCallUi':
+        emit(CallKeepShowIncomingCallUi());
+        break;
       case 'CallKeepDidPerformSetMutedCallAction':
         emit(CallKeepDidPerformSetMutedCallAction.fromMap(data));
         break;

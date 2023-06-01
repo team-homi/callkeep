@@ -50,6 +50,10 @@ class CallKeepDidDisplayIncomingCall extends EventType {
   Map<dynamic, dynamic>? payload;
 }
 
+class CallKeepShowIncomingCallUi extends EventType {
+  CallKeepShowIncomingCallUi();
+}
+
 class CallKeepDidPerformSetMutedCallAction extends EventType {
   CallKeepDidPerformSetMutedCallAction();
   CallKeepDidPerformSetMutedCallAction.fromMap(Map<dynamic, dynamic> arguments)

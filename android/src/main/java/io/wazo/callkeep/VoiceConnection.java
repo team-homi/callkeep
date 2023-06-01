@@ -70,6 +70,11 @@ public class VoiceConnection extends Connection {
     }
 
     @Override
+    public void onShowIncomingCallUi() {
+        sendCallRequestToActivity(ACTION_SHOW_INCOMING_CALL_UI, handle);
+    }
+
+    @Override
     public void onCallAudioStateChanged(CallAudioState state) {
         if (state.isMuted() == this.isMuted) {
             return;

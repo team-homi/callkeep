@@ -7,6 +7,7 @@ public class Constants {
     public static final String ACTION_DTMF_TONE = "ACTION_DTMF_TONE";
     public static final String ACTION_END_CALL = "ACTION_END_CALL";
     public static final String ACTION_HOLD_CALL = "ACTION_HOLD_CALL";
+    public static final String ACTION_SHOW_INCOMING_CALL_UI = "ACTION_SHOW_INCOMING_CALL_UI";
     public static final String ACTION_MUTE_CALL = "ACTION_MUTE_CALL";
     public static final String ACTION_ONGOING_CALL = "ACTION_ONGOING_CALL";
     public static final String ACTION_UNHOLD_CALL = "ACTION_UNHOLD_CALL";

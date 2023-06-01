@@ -31,6 +31,7 @@ import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.telecom.CallAudioState;
 import android.telecom.Connection;
 import android.telecom.PhoneAccount;
@@ -226,6 +227,10 @@ public class CallKeepModule {
         }
 
         return true;
+    }
+
+    public void showIncomingCallNotification() {
+
     }
     
     public void setup(ConstraintsMap options) {
@@ -620,7 +625,8 @@ public class CallKeepModule {
         String appName = this.getApplicationName(this.getAppContext());
 
         PhoneAccount.Builder builder = new PhoneAccount.Builder(handle, appName)
-                .setCapabilities(PhoneAccount.CAPABILITY_CALL_PROVIDER);
+                .setCapabilities(PhoneAccount.CAPABILITY_SELF_MANAGED);
+//                .setCapabilities(PhoneAccount.CAPABILITY_CALL_PROVIDER);
 
         if (_settings != null && _settings.hasKey("imageName")) {
             int identifier = appContext.getResources().getIdentifier(_settings.getString("imageName"), "drawable", appContext.getPackageName());
@@ -668,6 +674,7 @@ public class CallKeepModule {
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(ACTION_END_CALL);
             intentFilter.addAction(ACTION_ANSWER_CALL);
+            intentFilter.addAction(ACTION_SHOW_INCOMING_CALL_UI);
             intentFilter.addAction(ACTION_MUTE_CALL);
             intentFilter.addAction(ACTION_UNMUTE_CALL);
             intentFilter.addAction(ACTION_DTMF_TONE);
@@ -750,6 +757,9 @@ public class CallKeepModule {
                     args.putBoolean("hold", false);
                     args.putString("callUUID", attributeMap.get(EXTRA_CALL_UUID));
                     sendEventToFlutter("CallKeepDidToggleHoldAction", args);
+                    break;
+                case ACTION_SHOW_INCOMING_CALL_UI:
+                    sendEventToFlutter("CallKeepShowIncomingCallUi", args);
                     break;
                 case ACTION_MUTE_CALL:
                     args.putBoolean("muted", true);
