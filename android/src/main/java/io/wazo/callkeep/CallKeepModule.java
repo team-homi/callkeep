@@ -263,6 +263,7 @@ public class CallKeepModule {
     }
 
     private static boolean setupImpl(Context context, ConstraintsMap options) {
+        VoiceConnectionService.setReachable(true);
         boolean isServiceAvailable = isConnectionServiceAvailable();
         if (hasSetup) return isServiceAvailable;
         VoiceConnectionService.setAvailable(false);
@@ -401,7 +402,7 @@ public class CallKeepModule {
     }
 
     private void endCall(String uuid) {
-        Log.d(TAG, "endCall called");
+        Log.d(TAG, "endCall called: " + isConnectionServiceAvailable() + ", " + hasPhoneAccount());
         if (!isConnectionServiceAvailable() || !hasPhoneAccount()) {
             return;
         }

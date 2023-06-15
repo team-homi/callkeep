@@ -71,9 +71,9 @@ import io.wazo.callkeep.utils.ConstraintsMap;
 
 // @see https://github.com/kbagchiGWC/voice-quickstart-android/blob/9a2aff7fbe0d0a5ae9457b48e9ad408740dfb968/exampleConnectionService/src/main/java/com/twilio/voice/examples/connectionservice/VoiceConnectionService.java
 public class VoiceConnectionService extends ConnectionService {
-    private static Boolean isAvailable;
-    private static Boolean isInitialized;
-    private static Boolean isReachable;
+    private static Boolean isAvailable = false;
+    private static Boolean isInitialized = false;
+    private static Boolean isReachable = false;
     private static PhoneAccountHandle phoneAccountHandle = null;
     private static final String TAG = "RNCK:VoiceConnectionService";
     private static final Map<String, VoiceConnection> currentConnections = new HashMap<>();
@@ -114,9 +114,6 @@ public class VoiceConnectionService extends ConnectionService {
     public VoiceConnectionService() {
         super();
         Log.e(TAG, "Constructor");
-        isReachable = false;
-        isInitialized = false;
-        isAvailable = false;
         currentConnectionService = this;
     }
 
@@ -124,6 +121,12 @@ public class VoiceConnectionService extends ConnectionService {
     public void onCreate() {
         super.onCreate();
         checkReachability();
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.d(TAG, "onDestroy");
+        super.onDestroy();
     }
 
     public static void setPhoneAccountHandle(PhoneAccountHandle phoneAccountHandle) {
@@ -141,7 +144,7 @@ public class VoiceConnectionService extends ConnectionService {
 
 
     public static void setReachable(Boolean value) {
-        Log.d(TAG, "setReachable");
+        Log.d(TAG, "setReachable: " + (value ? "true" : "false"));
         isReachable = value;
     }
 
@@ -271,7 +274,7 @@ public class VoiceConnectionService extends ConnectionService {
         if (this.canMakeOutgoingCall() && isReachable) {
             return true;
         }
-        Log.d(TAG, "makeOngoingCall: not available");
+        Log.d(TAG, "makeOngoingCall: not available. canMakeOutgoingCall(): " + this.canMakeOutgoingCall() + ", isReachable: " + isReachable);
         return false;
     }
 
